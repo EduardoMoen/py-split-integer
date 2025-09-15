@@ -1,9 +1,24 @@
+import pytest
+
 from app.split_integer import split_integer
 
 
 def test_sum_of_the_parts_should_be_equal_to_value() -> None:
     assert split_integer(15, 3) == [5, 5, 5]
 
+
+@pytest.mark.parametrize(
+    "value, parts, result",
+    [
+        (15, 3, [5, 5, 5]),
+    ]
+)
+def test_result_properties_for_various_inputs(value, parts, result) -> None:
+    assert len(split_integer(value, parts)) == parts
+    assert all(isinstance(x, int) for x in split_integer(value, parts))
+    assert split_integer(value, parts) == sorted(split_integer(value, parts))
+    assert max(split_integer(value, parts)) - min(split_integer(value, parts)) <= 1
+    assert sum(split_integer(value, parts)) == value
 
 def test_should_split_into_equal_parts_when_value_divisible_by_parts() -> None:
     assert split_integer(6, 2) == [3, 3]
