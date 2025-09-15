@@ -11,7 +11,13 @@ def test_sum_of_the_parts_should_be_equal_to_value() -> None:
 @pytest.mark.parametrize(
     "value, parts, result",
     [
+        (8, 1, [8]),
+        (6, 2, [3, 3]),
         (15, 3, [5, 5, 5]),
+        (17, 4, [4, 4, 4, 5]),
+        (32, 6, [5, 5, 5, 5, 6, 6]),
+        (2, 3, [0, 1, 1]),
+        (7, 3, [2, 2, 3])
     ]
 )
 def test_result_properties_for_various_inputs(
@@ -24,7 +30,8 @@ def test_result_properties_for_various_inputs(
     assert split_integer(value, parts) == sorted(split_integer(value, parts))
     assert (max(split_integer(value, parts))
             - min(split_integer(value, parts)) <= 1)
-    assert sum(split_integer(value, parts)) == value
+    assert sum(1 for x in split_integer(value, parts)
+        if x == min(split_integer(value, parts)) + 1) == value % parts
 
 
 def test_should_split_into_equal_parts_when_value_divisible_by_parts() -> None:
