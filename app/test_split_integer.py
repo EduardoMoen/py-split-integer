@@ -30,8 +30,10 @@ def test_result_properties_for_various_inputs(
     assert split_integer(value, parts) == sorted(split_integer(value, parts))
     assert (max(split_integer(value, parts))
             - min(split_integer(value, parts)) <= 1)
-    assert sum(1 for x in split_integer(value, parts)
-        if x == min(split_integer(value, parts)) + 1) == value % parts
+    assert sum(
+        1 for x in split_integer(value, parts)
+        if x == min(split_integer(value, parts)) + 1
+    ) == value % parts
 
 
 def test_should_split_into_equal_parts_when_value_divisible_by_parts() -> None:
